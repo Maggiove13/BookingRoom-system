@@ -19,3 +19,13 @@ if (!pool){
 } else {
     console.log("Connected to de database");
 }
+
+
+export const queryInsertBooking = async (user_id, room_id, start_date, end_date, status) => {
+    try {
+        return await pool.query('INSERT INTO bookings (user_id, room_id, start_date, end_date, status) VALUES ($1, $2, $3, $4, $5) RETURNING *', [user_id, room_id, start_date, end_date, status]);
+    } catch (error) {
+        console.log(error);
+        throw  error;
+    } 
+}
