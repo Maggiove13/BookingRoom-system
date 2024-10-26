@@ -46,3 +46,9 @@ async function onlyPublic(req, res, next) {
 
     return res.redirect("/admin");
 }
+
+
+export const methods = {
+    onlyAdmin,
+    onlyPublic
+}
