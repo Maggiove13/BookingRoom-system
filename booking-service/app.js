@@ -4,3 +4,5 @@ import cookieParser from "cookie-parser";
 import { bookingRoutes } from "./routes/bookingRoutes.js";
 
 dotenv.config();
+
+const app = express();
