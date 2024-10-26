@@ -6,3 +6,5 @@ import { bookingRoutes } from "./routes/bookingRoutes.js";
 dotenv.config();
 
 const app = express();
+
+app.use(express.json());
