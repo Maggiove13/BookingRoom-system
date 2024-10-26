@@ -33,6 +33,16 @@ async function onlyAdmin(req, res, next) {
     if (logged) {
         return next();
     }
-    
+
     return res.redirect("/");
+}
+
+
+async function onlyPublic(req, res, next) {
+    const logged = await cookieReview(req);
+    if (!logged) {
+        return next();
+    }
+
+    return res.redirect("/admin");
 }
