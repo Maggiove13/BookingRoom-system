@@ -45,3 +45,31 @@ export const makeBooking = async (req, res) => {
     }
 }
 
+
+
+export const deleteBooking = async (req, res) => {
+    const {user_name, room_id} = req.body;
+
+    if (!user_name || !room_id) {
+        console.log("user_id or room_id is missing");
+        return res.status(400).send({message: "booking_id or user_name is required"});
+    }
+
+    try {
+        const loginUrl = `http://localhost:4000/api/login/${user_name}`;
+        const userResponse = await axios.get(loginUrl);
+        const user_id = userResponse.data.user_id;
+        
+        const result = await queryDeleteBookingFromUser(user_id, room_id);
+
+        if (!result || result.rowCount === 0) {
+            return res.status(404).send({ message: `No bookings found for ${user_name}`});
+        } else {
+            console.log("Booking successfully deleted");
+            return res.status(200).send({ message: "Booking successfully deleted" });
+        }
+    } catch (error) {
+        console.error("Error:", error);
+        return res.status(500).send({ message: "Internal server error" });
+    }
+}
