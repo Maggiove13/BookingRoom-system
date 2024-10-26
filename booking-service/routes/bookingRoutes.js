@@ -14,3 +14,5 @@ router.post("/makeABooking", verifyTokenBooking, makeBooking);
 router.delete("/deleteBookings",verifyTokenBooking, deleteBooking);
 
 router.get("/allBookings",verifyTokenBooking, getAllBooksByUser);
+
+router.put("/updateBookings", updateBooking);
