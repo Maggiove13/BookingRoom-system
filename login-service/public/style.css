@@ -59,3 +59,10 @@ Asi que crearemos una clase, en la que le ddamos dimensiones pequeñitas, y esta
     overflow: hidden;
 }
 
+/* Ahora le daremos diseño a los inputs, las cajitas y el boton */
+input, button{
+    border-radius: 4px;
+    border: unset;
+    padding: 15px 30px;
+    font-size: large;
+}
