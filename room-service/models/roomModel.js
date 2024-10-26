@@ -26,3 +26,12 @@ export const queryAddRoom = async (type, capacity, status) => {
         throw error;
     }
 };
+
+export const queryAvailableRoom = async () => {
+    try {
+        const consult = await pool.query('SELECT * FROM rooms WHERE status= $1', ['available']);
+        return consult.rows;
+    } catch (error){
+        throw error; // Propagar el error para manejarlo mejor
+    }
+}
