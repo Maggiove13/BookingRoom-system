@@ -40,3 +40,14 @@ export const queryGetAllBookingsByUserId = async (user_id) => {
         throw error;
     } 
 }
+
+
+export const queryDeleteBookingFromUser = async (user_id, room_id) => {
+    try{
+        const queryDelete = await pool.query('DELETE FROM bookings WHERE user_id = $1 AND room_id = $2', [user_id, room_id]);
+        return queryDelete;
+    } catch (error) {
+        console.error("Error in queryDeleteBookingFromUser:", error);
+        throw error;
+    }
+}
