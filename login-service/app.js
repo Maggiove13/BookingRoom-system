@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from "url";
+import cookieParser from 'cookie-parser';
 
 dotenv.config();
 
@@ -15,12 +16,11 @@ const app = express();
 //app.use(express.static(__dirname + "public"));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware para procesar JSON | Expres -no viene configurado para leer json, asi que para qque pueda leer, hacemos esto:
+app.use(express.json());
 
-
-
-
-
-
+// Middleware para parsear cookies
+app.use(cookieParser()); 
 
 
 
