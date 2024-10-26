@@ -6,3 +6,4 @@ import { updateBooking } from "../controllers/bookingControllers.js";
 import { verifyTokenBooking } from "../middleware/bookingAuthorization.js";
 
 
+const router = Router();
