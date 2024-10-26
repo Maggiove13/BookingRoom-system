@@ -7,3 +7,6 @@ import { verifyTokenBooking } from "../middleware/bookingAuthorization.js";
 
 
 const router = Router();
+
+
+router.post("/makeABooking", verifyTokenBooking, makeBooking);
