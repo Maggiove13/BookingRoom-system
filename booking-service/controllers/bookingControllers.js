@@ -126,3 +126,34 @@ export const updateBooking = async (req, res) => {
         throw error;
     }
 }
+
+
+async function sendToQueue (status, room_id) {
+
+    try {
+        const connection = await amqp.connect('amqp://localhost');
+        const channel = await connection.createChannel();
+        const queue = 'booking_queue';
+    
+        // Crear la cola si no existe
+        await channel.assertQueue(queue, { durable: false });
+    
+        // Enviar el mensaje
+        const message = {status, room_id};
+        channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
+        console.log('Message sent:', message);
+    
+        // Cerrar conexión
+        // setTimeout(() => {
+        //     connection.close();
+        // }, 500);
+        
+
+        // Cerrar el canal y la coneion
+        await channel.close();
+        await connection.close();
+        } catch (error) {
+        console.error('Error enviando mensaje a RabbitMQ:', error);
+        throw error;
+    }
+}
