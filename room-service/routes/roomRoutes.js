@@ -6,6 +6,8 @@ import { UpdateStatusRoom } from "../controllers/roomControllers.js";
 
 const router = Router();
 
+router.post("/add", addRoom);
+
 router.get("/availableRoom/", verifyToken, availableRoom);
 
 router.put("/updateRooms/",  UpdateStatusRoom);
