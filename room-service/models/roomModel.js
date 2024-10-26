@@ -12,3 +12,9 @@ const pool = new Pool({
     port: databaseConfig.port
 });
 
+
+if (!pool){
+    console.log("There was an error connecting to the database");
+} else{
+    console.log("Successful connection to the Postgress database")
+}
