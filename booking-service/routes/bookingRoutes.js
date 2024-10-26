@@ -16,3 +16,6 @@ router.delete("/deleteBookings",verifyTokenBooking, deleteBooking);
 router.get("/allBookings",verifyTokenBooking, getAllBooksByUser);
 
 router.put("/updateBookings", updateBooking);
+
+
+export const bookingRoutes = router;
