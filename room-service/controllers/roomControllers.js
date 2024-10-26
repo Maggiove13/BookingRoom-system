@@ -31,3 +31,27 @@ export const availableRoom = async (req, res) => {
     }
 } 
 
+
+export const UpdateStatusRoom = async (req, res) => {
+    const {room_id, status} = req.body;
+
+    try{
+        const validStatus = ['available', 'not available'];
+        if (!validStatus.includes(status)){
+            return res.status(400).send({message: "Invalid status. Status must be: 'available' or 'not available'"});
+        };
+
+        const resultQ = await queryUpdateStatusRoom(status, room_id);
+        console.log(resultQ);
+
+        if (resultQ.rowCount === 0){
+            console.error(error);
+            return res.status(404).send({message: "room_id not found"});
+        }
+        return res.status(200).send({message: "Rooms status updated"});
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).send({ message: "Internal server error" });
+    }
+}
