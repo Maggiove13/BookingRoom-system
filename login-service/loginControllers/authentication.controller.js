@@ -95,3 +95,17 @@ async function register(req, res){
     }
 }
 
+async function getUserName(req, res) {
+    const user_name = req.params.name;
+    try {
+        const userResult = await pool.query('SELECT id, user_name FROM users WHERE user_name = $1', [user_name]);
+        if (userResult.rowCount === 0) {
+            return res.status(404).send({ message: "User not found" });
+        }
+        const user = userResult.rows[0];
+        return res.status(200).send({ user_id: user.id, name: user.user_name });
+    } catch (error) {
+        console.error("Error fetching user:", error);
+        res.status(500).send({ message: "Internal server error" });
+    }
+}
