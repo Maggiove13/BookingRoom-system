@@ -11,7 +11,7 @@ app.use(express.json());
 
 app.use(cookieParser());
 
-
+app.use("/bookings", bookingRoutes);
 
 const port = process.env.PORT;
 
