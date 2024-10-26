@@ -51,3 +51,14 @@ export const queryDeleteBookingFromUser = async (user_id, room_id) => {
         throw error;
     }
 }
+
+
+export const queryUpdateBookingStatus = async (room_id, status) => {
+    try{
+        const query = await pool.query('UPDATE bookings SET status = $1 WHERE id = $2', [status, room_id]);
+        return query;
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+}
