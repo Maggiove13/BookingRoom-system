@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from "url";
 import cookieParser from 'cookie-parser';
-import { methods as authentication } from "./controllers/authentication.controller.js";
+import { methods as authentication } from "./loginControllers/authentication.controller.js";
 import { methods as authorization } from "./middlewares/authorization.js";
 
 
