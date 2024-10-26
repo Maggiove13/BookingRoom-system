@@ -29,3 +29,14 @@ export const queryInsertBooking = async (user_id, room_id, start_date, end_date,
         throw  error;
     } 
 }
+
+
+export const queryGetAllBookingsByUserId = async (user_id) => {
+    try{
+        const consult = await pool.query('SELECT * FROM bookings WHERE user_id = $1', [user_id]);
+        return consult;
+    } catch (error){
+        console.log("Error in queryGetAllBookingsByUserId: ", error);
+        throw error;
+    } 
+}
