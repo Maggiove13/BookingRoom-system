@@ -3,7 +3,7 @@ import pg from "pg";
 
 const { Pool } = pg;
 
-const pool = new Pool({
+export const pool = new Pool({
     host: dbConfig.host,
     user: dbConfig.user,
     password: dbConfig.password,
@@ -11,10 +11,10 @@ const pool = new Pool({
     port: dbConfig.port
 });
 
-
-if (!pool){
-    console.log("There was an error connecting to the database", pool.name);
-    console.error("There was an error:", error)
-} else {
-    console.log("Connected to de database");
+try {
+    await pool.connect(); 
+    console.log("Connected to the database");
+} catch (error) {
+    console.log("There was an error connecting to the database");
+    console.error("Error details:", error);
 }
