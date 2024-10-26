@@ -55,3 +55,48 @@ export const UpdateStatusRoom = async (req, res) => {
         return res.status(500).send({ message: "Internal server error" });
     }
 }
+
+
+async function receiveMessage() {
+    try {
+        const connection = await amqp.connect('amqp://localhost');
+        const channel = await connection.createChannel();
+        const queue = 'booking_queue';
+
+        // Crear la cola si no existe
+        await channel.assertQueue(queue, { durable: false });
+
+        console.log(`Waiting for messages in queue: ${queue}`);
+
+        // Consumir mensajes
+        channel.consume(queue, async (msg) => {
+            if (msg !== null) {
+                const { status, room_id } = JSON.parse(msg.content.toString());
+                console.log("Message received:", { status, room_id  });
+
+                
+                if (!room_id || !status) {
+                    console.log("'room_id' or 'status' is missing");
+                    return;
+                }
+
+                // Actualizar estado de la habitación en la base de datos
+                try {
+                    const result = await queryUpdateStatusRoom(status, room_id);
+                    if (result.rowCount > 0) {
+                        console.log(`Room ${room_id} status updated to ${status}`);
+                    } else {
+                        console.log(`Room ${room_id} not found`);
+                    }
+                } catch (error) {
+                    console.error('Error updating room status:', error);
+                }
+
+                channel.ack(msg); // Acknowledge que el mensaje ha sido procesado
+            }
+        });
+    } catch (error) {
+        console.error('Error connecting to RabbitMQ:', error);
+    }
+}
+
