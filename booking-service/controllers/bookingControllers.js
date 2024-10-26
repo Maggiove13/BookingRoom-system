@@ -157,3 +157,10 @@ async function sendToQueue (status, room_id) {
         throw error;
     }
 }
+
+
+const breaker = new CircuitBreaker(sendToQueue, {
+    timeout: 5000, // El tiempo máximo permitido para completar la operación antes de considerar que ha fallado.
+    errorThresholdPercentage: 50, //  El porcentaje de fallos en relación con el total de intentos antes de abrir el circuito.
+    resetTimeout: 10000, // Tiempo para reintentar la operacion (en milisegundos)
+});
