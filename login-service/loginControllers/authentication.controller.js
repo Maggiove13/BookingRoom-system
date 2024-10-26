@@ -65,3 +65,33 @@ async function login(req, res) {
     };
 }
 
+
+
+async function register(req, res){
+    const { user, email, password } = req.body;  
+
+    if (!user || !email || !password) {
+        return res.status(400).send({ status: "Error", message: "incomplete fields" });
+    }
+
+    try {
+        const result = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+
+        if (result.rows.length > 0) {
+            return res.status(400).send({ status: "Error", message: "This user already exists" });
+        }
+        // Saltear la contraseña
+        const salt = await bcryptjs.genSalt(3); 
+        //Hashear la contraseña.
+        const hashPassword = await bcryptjs.hash(password, salt);  
+        await pool.query(
+        'INSERT INTO users (user_name, email, password) VALUES ($1, $2, $3)',  
+            [user, email, hashPassword] 
+        );
+        res.status(201).send({ status: "Success", message: "Usuario registrado exitosamente", redirect:"/" });
+    } catch (error) {
+        console.log('User successfully registered', error);
+        res.status(500).send({status: "Error", message: "Internal server error"});
+    }
+}
+
