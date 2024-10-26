@@ -19,3 +19,21 @@ html {
         repeating-linear-gradient(90deg,var(--c3) calc(25%/-6) calc(25%/6),var(--c4) 0 calc(25%/2));
     background-size: var(--s) calc(3*var(--s)/2)
 }
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex; /*Acà le decimos a la configuracion que sea flexible e iniciamos ese setup */
+    justify-content: center;
+    align-items: center;
+    min-height: 100svh; 
+    font-size: larger;
+}
+
+
+/*Las configurarciones para el formulario */
+form{
+    display: flex; /*Acà le decimos a la configuracion que sea flexible e iniciamos ese setup */
+    flex-direction: column;
+    gap: 10px;
+}
