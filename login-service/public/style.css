@@ -37,3 +37,14 @@ form{
     flex-direction: column;
     gap: 10px;
 }
+
+/*el parrafo que esta por debajo del formulacio por eso es form+p*/
+/*form p= Para que tb alinee el parrafo que este dentro del formulario, osea el error*/
+form+p, form p{
+    text-align: center;
+}
+
+/*si necesitamos ocultar los nombres que aparecen como nombres de casillas de User, y password, lo hariamos por ejemplo asi:
+label{
+    display: None; --->  Pero si hago esto va a desaparecer por completo esos labels
+}  
