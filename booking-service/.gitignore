@@ -1,0 +1,7 @@
+#variables de entorno
+.env
+.env/
+
+# El paguete de node Modules
+node_modules/
+node_modules
