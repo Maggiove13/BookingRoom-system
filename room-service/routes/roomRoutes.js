@@ -11,3 +11,5 @@ router.post("/add", addRoom);
 router.get("/availableRoom/", verifyToken, availableRoom);
 
 router.put("/updateRooms/",  UpdateStatusRoom);
+
+export const roomsRoutes = router;
