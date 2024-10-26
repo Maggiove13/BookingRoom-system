@@ -164,3 +164,8 @@ const breaker = new CircuitBreaker(sendToQueue, {
     errorThresholdPercentage: 50, //  El porcentaje de fallos en relación con el total de intentos antes de abrir el circuito.
     resetTimeout: 10000, // Tiempo para reintentar la operacion (en milisegundos)
 });
+
+
+breaker.fallback(() => {
+    console.log('Fallback: El circuito esta abierto. no se puede enviar mensaje');
+});
