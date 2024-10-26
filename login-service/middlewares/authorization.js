@@ -28,3 +28,11 @@ async function cookieReview(req) {
     }
 }
 
+async function onlyAdmin(req, res, next) {
+    const logged = await cookieReview(req); 
+    if (logged) {
+        return next();
+    }
+    
+    return res.redirect("/");
+}
