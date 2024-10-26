@@ -73,3 +73,33 @@ export const deleteBooking = async (req, res) => {
         return res.status(500).send({ message: "Internal server error" });
     }
 }
+
+
+export const getAllBooksByUser = async (req, res) => {
+    const {user_name} = req.body;
+
+    if (!user_name) {
+        console.log("user_id is missing");
+        return res.status(400).send({ message: "user_name is required" });
+    }
+
+    try{
+
+        const loginUrl = `http://localhost:4000/api/login/${user_name}`;
+        const userResponse = await axios.get(loginUrl);  
+        const user_id = userResponse.data.user_id;
+
+        const consult = await queryGetAllBookingsByUserId(user_id)
+
+        if (!consult || consult.rowCount === 0){
+            return res.status(404).send({message: `No bookings found for ${user_name}`});
+        } else{
+            console.log("Bookings retrieved successfully");
+            return res.status(200).send({ bookings: consult.rows });
+        }
+    } catch (error) {
+        res.status(500).send({message: "Internal Server error"});
+        console.log("Error:", error);
+        throw error;
+    }
+}
