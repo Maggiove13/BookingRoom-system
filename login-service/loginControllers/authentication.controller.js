@@ -109,3 +109,9 @@ async function getUserName(req, res) {
         res.status(500).send({ message: "Internal server error" });
     }
 }
+
+export const methods = {
+    login,
+    register,
+    getUserName
+}
