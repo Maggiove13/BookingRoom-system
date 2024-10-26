@@ -11,3 +11,11 @@ const pool = new Pool({
     database: dbConfig.database,
     port: dbConfig.port
 });
+
+
+if (!pool){
+    console.log("There was an error connecting to the database", pool.name);
+    console.error("There was an error:", error)
+} else {
+    console.log("Connected to de database");
+}
