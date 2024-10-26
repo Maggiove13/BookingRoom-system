@@ -74,3 +74,13 @@ button{
     font-weight: bold;
     cursor: pointer;
 }
+
+/*Acà crearemos la clase para el mensaje de error*/
+.error{
+    color: rgb(234, 84, 84);
+}
+
+/*este error t va a usar un clase escondido, ya que solo se mostrarà cuando el user falle en sus datos*/
+.hidden{
+    display: none;
+}
