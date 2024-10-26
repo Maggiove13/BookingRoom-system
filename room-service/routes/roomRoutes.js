@@ -5,3 +5,5 @@ import { verifyToken } from "../middleware/authorization.js";
 import { UpdateStatusRoom } from "../controllers/roomControllers.js";
 
 const router = Router();
+
+router.get("/availableRoom/", verifyToken, availableRoom);
