@@ -7,3 +7,5 @@ import { UpdateStatusRoom } from "../controllers/roomControllers.js";
 const router = Router();
 
 router.get("/availableRoom/", verifyToken, availableRoom);
+
+router.put("/updateRooms/",  UpdateStatusRoom);
