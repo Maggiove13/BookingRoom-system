@@ -3,6 +3,9 @@ import dotenv from "dotenv";
 import path from 'path';
 import { fileURLToPath } from "url";
 import cookieParser from 'cookie-parser';
+import { methods as authentication } from "./controllers/authentication.controller.js";
+import { methods as authorization } from "./middlewares/authorization.js";
+
 
 dotenv.config();
 
@@ -23,7 +26,32 @@ app.use(express.json());
 app.use(cookieParser()); 
 
 
+// Ruta principal - HOME
+app.get("/", authorization.onlyPublic, (req, resp) => {
+    resp.sendFile(path.join(__dirname, "pages", "login.html")); // Ruta con path.join para evitar problemas de compatibilidad
+});
 
+
+// Ruta para mandarle al usuario para visualiacion del register.
+app.get("/register",authorization.onlyPublic, (req, resp) => {
+    resp.sendFile(path.join(__dirname, "pages", "register.html")); // Ruta con path.join para evitar problemas de compatibilidad
+});
+
+
+// Ruta para la pagina de admin
+app.get("/admin", authorization.onlyAdmin, (req, resp) => {
+    resp.sendFile(path.join(__dirname, "pages", "admin", "admin.html")); // Ruta con path.join para evitar problemas de compatibilidad
+});
+
+
+// Ruta para la api Login - Obtener datos del usuario
+app.post("/api/login", authentication.login);
+
+// Ruta para la api Register - Obtener datos del usuario
+app.post("/api/register", authentication.register);
+
+// Endpoint en el microservicio Login para obtener el user_id por nombre
+app.get('/api/login/:name', authentication.getUserName);
 
 
 
