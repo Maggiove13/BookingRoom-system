@@ -18,3 +18,11 @@ if (!pool){
 } else{
     console.log("Successful connection to the Postgress database")
 }
+
+export const queryAddRoom = async (type, capacity, status) => {
+    try {
+        await pool.query('INSERT INTO rooms (type, capacity, status) VALUES ($1, $2, $3)', [type, capacity, status]);
+    } catch (error) {
+        throw error;
+    }
+};
