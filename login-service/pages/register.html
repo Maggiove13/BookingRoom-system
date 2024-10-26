@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="/style.css">
+    <!-- Cuando ponemos "defer" en nuestro bloque especial (script de JavaScript),
+    es como si le pusiéramos un letrero que dice: "¡Espera! No te muevas hasta que todos los bloques normales estén en su lugar". -->
+    <script src="register.js" defer></script> <!--Los archivos de Js, se quieren mover de lugar, son traviesos-->
+<body>
+    <main>
+        <div class="form-conteiner">
+            <h1>Register</h1>
+
+            <p>Create your account</p>
+
+            <form id="register-form"> <!-- En este caso no es tan necesario poner id, ya que va a haber un solo formulario-->
+                <label for="user" class="sr-only">User</label> <!--Para el label hay que poner para quien es-->
+                <input type="text" name="user" id="user" placeholder="Enter your username">
+
+                <label for="email" class="sr-only">Email</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email address">
+
+                <label for="password" class="sr-only">Password</label> <!--Para el label hay que poner para quien es-->
+                <input type="text" name="password" id="password" placeholder="Enter your password">
+
+                <button type="submit">Log in</button>
+                <p class="error hidden">Registration failed</p>
+            </form>
+            <p>You already have an account? - <a href="/">Sign In</a></p>
+        </div>
+    </main>
+</body>
+</html>
