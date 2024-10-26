@@ -66,3 +66,11 @@ input, button{
     padding: 15px 30px;
     font-size: large;
 }
+
+
+button{
+    background-color: rgb(46, 86, 128);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
