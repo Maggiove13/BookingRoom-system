@@ -10,3 +10,5 @@ const router = Router();
 
 
 router.post("/makeABooking", verifyTokenBooking, makeBooking);
+
+router.delete("/deleteBookings",verifyTokenBooking, deleteBooking);
