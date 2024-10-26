@@ -103,3 +103,26 @@ export const getAllBooksByUser = async (req, res) => {
         throw error;
     }
 }
+
+
+
+export const updateBooking = async (req, res) => {
+    const { status, room_id } = req.body;
+
+    try{
+
+        const validStatus = ['pending', 'cancelled', 'confirmed'];
+        if (!validStatus.includes(status)){
+            return res.status(400).send({message: "Invalid status. Status must be: 'pending', 'cancelled', or 'confirmed'."})
+        }
+
+        const queryConsult = await queryUpdateBookingStatus(status, room_id );
+        if (queryConsult.rowCount === 0){
+            return res.status(404).send({message: "booking_id, not found"});
+        }
+        res.status(200).send({message: "Booking status updated successfully"});
+    } catch (error){
+        console.error("Error:", error);
+        throw error;
+    }
+}
