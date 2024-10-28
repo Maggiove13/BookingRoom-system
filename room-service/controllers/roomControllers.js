@@ -77,6 +77,7 @@ async function receiveMessage() {
                 
                 if (!room_id || !status) {
                     console.log("'room_id' or 'status' is missing");
+                    channel.ack(msg); // Acknowledge que el mensaje ha sido procesado
                     return;
                 }
 
@@ -90,9 +91,10 @@ async function receiveMessage() {
                     }
                 } catch (error) {
                     console.error('Error updating room status:', error);
+                    channel.nack(msg);
                 }
 
-                channel.ack(msg); // Acknowledge que el mensaje ha sido procesado
+                //channel.ack(msg); // Acknowledge que el mensaje ha sido procesado
             }
         });
     } catch (error) {
