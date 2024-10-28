@@ -32,6 +32,19 @@ export const queryAvailableRoom = async () => {
         const consult = await pool.query('SELECT * FROM rooms WHERE status= $1', ['available']);
         return consult.rows;
     } catch (error){
-        throw error; // Propagar el error para manejarlo mejor
+        console.error(error);
+        throw error; 
     }
 }
+
+
+export const queryUpdateStatusRoom = async (status, room_id) => {
+    try {
+        const query = await pool.query('UPDATE rooms SET status = $1 WHERE id = $2', [status, room_id]);
+        return query;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
