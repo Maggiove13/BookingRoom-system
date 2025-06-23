@@ -1,36 +1,36 @@
 # BookingRoom System
 
-Sistema de reservas de salas basado en arquitectura de microservicios desarrollado con Node.js y Express.
+Room reservation system based on microservices architecture developed with Node.js and Express.
 
-## 📋 Descripción del Proyecto
+## Project Description
 
-BookingRoom System es una aplicación distribuida que permite gestionar reservas de salas a través de múltiples microservicios independientes. El sistema incluye autenticación de usuarios, gestión de salas y un sistema completo de reservas con comunicación asíncrona mediante RabbitMQ.
+BookingRoom System is a distributed application that allows managing room reservations through multiple independent microservices. The system includes user authentication, room management, and a complete reservation system with asynchronous communication via RabbitMQ.
 
-## 🏗️ Arquitectura del Sistema
+## System Architecture
 
-El proyecto está organizado como una arquitectura de microservicios con los siguientes componentes:
+The project is organized as a microservices architecture with the following components:
 
-### Microservicios
+### Microservices
 
 1. **Login Service** (`login-service/`)
-   - Autenticación y registro de usuarios
-   - Gestión de JWT tokens
-   - Interfaz web para login/registro
-   - Puerto: 4000 (configurable)
+   - User authentication and registration
+   - JWT token management
+   - Web interface for login/registration
+   - Port: 4000 (configurable)
 
 2. **Room Service** (`room-service/`)
-   - Gestión de salas disponibles
-   - Actualización de estados de salas
-   - Integración con RabbitMQ
-   - Puerto: 3000 (configurable)
+   - Management of available rooms
+   - Room status updates
+   - Integration with RabbitMQ
+   - Port: 3000 (configurable)
 
 3. **Booking Service** (`booking-service/`)
-   - Creación y gestión de reservas
-   - Comunicación con otros servicios
-   - Validación de disponibilidad
-   - Puerto: 5000 (configurable)
+   - Reservation creation and management
+   - Communication with other services
+   - Availability validation
+   - Port: 5000 (configurable)
 
-### Estructura de Carpetas
+### Folder Structure
 
 ```
 BookingRoom-system/
@@ -64,60 +64,48 @@ BookingRoom-system/
 └── README.md              # Este archivo
 ```
 
-## 📋 Contracts (Contratos de API)
 
-Los **contracts** son especificaciones técnicas que definen las interfaces de comunicación de cada microservicio:
-
-### ¿Qué son los Contracts?
-
-Los contracts en este proyecto son documentos que especifican:
-- **Endpoints disponibles**: URLs, métodos HTTP y parámetros
-- **Formato de datos**: Estructura de peticiones y respuestas
-- **Autenticación**: Requisitos de tokens JWT
-- **Códigos de estado**: Respuestas de éxito y error
-- **Validaciones**: Reglas de negocio y validación de datos
-
-### Contracts Disponibles
+## API Contracts
 
 1. **Login Service Contract** (`documents/login-service_contract.md`)
-   - Endpoints de autenticación (`/api/login`, `/api/register`)
-   - Rutas de páginas web (`/`, `/register`, `/admin`)
-   - Gestión de JWT tokens via cookies HTTP-only
+   - Authentication endpoints (`/api/login`, `/api/register`)
+   - Web page routes (`/`, `/register`, `/admin`)
+   - JWT token management via HTTP-only cookies
 
 2. **Room Service Contract** (`documents/room-service_contract.md`)
-   - Gestión de salas (`/rooms/add`, `/rooms/availableRoom`, `/rooms/updateRooms`)
-   - Integración con RabbitMQ para actualizaciones de estado
-   - Autenticación JWT requerida
+   - Room management (`/rooms/add`, `/rooms/availableRoom`, `/rooms/updateRooms`)
+   - RabbitMQ integration for status updates
+   - Requires JWT authentication
 
 3. **Booking Service Contract** (`documents/booking-service_contract.md`)
-   - Gestión de reservas (`/bookings/makeABooking`, `/bookings/deleteBookings`)
-   - Consulta de reservas (`/bookings/allBookings`)
-   - Comunicación asíncrona con Room Service
+   - Reservation management (`/bookings/makeABooking`, `/bookings/deleteBookings`)
+   - Booking queries (`/bookings/allBookings`)
+   - Asynchronous communication with Room Service
 
-## 🚀 Instalación y Configuración
+## Installation and Setup
 
-### Prerrequisitos
+### Prerequisites
 
-- Node.js (v14 o superior)
-- npm o yarn
+- Node.js (v14 or higher)
+- npm or yarn
 - PostgreSQL
-- RabbitMQ (para comunicación entre servicios)
+- RabbitMQ (for inter-service communication)
 
-### Clonar el Repositorio
+### Clone the Repository
 
 ```bash
-git clone <URL_DEL_REPOSITORIO>
+git clone <REPOSITORY_URL>
 cd BookingRoom-system
 ```
 
-### Instalación de Dependencias
+### Install dependencies
 
-1. **Instalar dependencias globales:**
+1. **Install global dependencies:**
 ```bash
 npm install
 ```
 
-2. **Instalar dependencias de cada microservicio:**
+2. **Install dependencies for each microservice:**
 ```bash
 # Login Service
 cd login-service
@@ -132,9 +120,9 @@ cd ../booking-service
 npm install
 ```
 
-### Configuración de Variables de Entorno
+### Environment Variable Configuration
 
-Crear archivos `.env` en cada microservicio:
+Create .env files in each microservice:
 
 #### login-service/.env
 ```env
@@ -173,14 +161,14 @@ DB_USER=tu_usuario
 DB_PASSWORD=tu_password
 ```
 
-### Configuración de Base de Datos
+### Database Setup:
 
-1. Crear una base de datos PostgreSQL llamada `booking_db`
-2. Ejecutar los scripts de creación de tablas (ubicados en cada carpeta `config/`)
+1. Create a PostgreSQL database named `booking_db`
+2. Run the table creation scripts located in each `config/` folder
 
-### Configuración de RabbitMQ
+### RabbitMQ Setup
 
-1. Instalar RabbitMQ:
+1. Install RabbitMQ:
 ```bash
 # Ubuntu/Debian
 sudo apt-get install rabbitmq-server
@@ -189,17 +177,17 @@ sudo apt-get install rabbitmq-server
 brew install rabbitmq
 
 # Windows
-# Descargar desde https://www.rabbitmq.com/download.html
+# Download from https://www.rabbitmq.com/download.html
 ```
 
-2. Iniciar el servicio:
+2. Start the service:
 ```bash
 sudo systemctl start rabbitmq-server
 ```
 
-## 🏃‍♂️ Ejecución del Sistema
+## Running the System
 
-### Opción 1: Ejecutar cada servicio individualmente
+### Run each service individually
 
 ```bash
 # Terminal 1 - Login Service
@@ -215,63 +203,28 @@ cd booking-service
 node app.js
 ```
 
-### Opción 2: Script de inicio automático
+## Access URLs
 
-Crear un script `start.sh` en la raíz del proyecto:
+Once the system is running:
 
-```bash
-#!/bin/bash
-echo "Iniciando BookingRoom System..."
+- **Web Application**: http://localhost:4000
+- **Admin Panel**: http://localhost:4000/admin
+- **Login Service API**: http://localhost:4000/api/
+- **Room Service API**: http://localhost:3000/rooms/
+- **Booking Service API**: http://localhost:5000/bookings/
 
-# Iniciar Login Service
-cd login-service && npm run dev &
-LOGIN_PID=$!
-
-# Iniciar Room Service
-cd ../room-service && node app.js &
-ROOM_PID=$!
-
-# Iniciar Booking Service
-cd ../booking-service && node app.js &
-BOOKING_PID=$!
-
-echo "Servicios iniciados:"
-echo "Login Service: http://localhost:4000"
-echo "Room Service: http://localhost:3000"
-echo "Booking Service: http://localhost:5000"
-
-# Esperar a que terminen los procesos
-wait $LOGIN_PID $ROOM_PID $BOOKING_PID
-```
-
-Hacer ejecutable y correr:
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-## 🌐 URLs de Acceso
-
-Una vez ejecutado el sistema:
-
-- **Aplicación Web**: http://localhost:4000
-- **Panel de Administración**: http://localhost:4000/admin
-- **API Login Service**: http://localhost:4000/api/
-- **API Room Service**: http://localhost:3000/rooms/
-- **API Booking Service**: http://localhost:5000/bookings/
-
-## 🔧 Tecnologías Utilizadas
+## Technologies Used
 
 - **Backend**: Node.js, Express.js
-- **Base de Datos**: PostgreSQL
-- **Autenticación**: JWT (JSON Web Tokens)
-- **Comunicación Asíncrona**: RabbitMQ
+- **Database**: PostgreSQL
+- **Authentication**: JWT (JSON Web Tokens)
+- **Asynchronous Communication**: RabbitMQ
 - **Frontend**: HTML, CSS, JavaScript
-- **Arquitectura**: Microservicios
+- **Architecture**: Microservicios
 
-## 📚 Documentación de APIs
+## API Documentation
 
-Para información detallada sobre cada API, consulta los contracts en la carpeta `documents/`:
+For detailed information about each API, see the contracts in the `documents/` folder:
 
 - [Login Service API](documents/login-service_contract.md)
 - [Room Service API](documents/room-service_contract.md)
